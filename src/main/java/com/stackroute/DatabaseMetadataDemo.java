@@ -4,15 +4,25 @@ import java.sql.*;
 
 public class DatabaseMetadataDemo {
 
-    public static void main(String[] args) {
+   public void DatabaseMetadataDemo() {
+       try {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+
+       }
+   }
 
 
         Connection connection;
+   public void getDatabaseMetaData()
+   {
 
-        {
+
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mdb", "root", "Root@123");
                 DatabaseMetaData dbmd = connection.getMetaData();
+                connection.setAutoCommit(false);
 
                 System.out.println("Database Name: " + dbmd.getUserName());
                 System.out.println(" Database Driver Name: " + dbmd.getDriverName());
@@ -21,10 +31,12 @@ public class DatabaseMetadataDemo {
 
                 connection.commit();
                 connection.close();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e)
+            {
                 e.printStackTrace();
             }
-        }
+
 
     }
 }
